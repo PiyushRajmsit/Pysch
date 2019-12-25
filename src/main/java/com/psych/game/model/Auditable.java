@@ -13,9 +13,8 @@ import java.util.Date;
 
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt","updatedAt"},allowGetters = true)
-
-
 public abstract class Auditable implements Serializable {
+
 
     @Column(nullable = false,updatable = false)
     @CreatedDate

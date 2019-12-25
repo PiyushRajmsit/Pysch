@@ -2,6 +2,7 @@ package com.psych.game.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -10,7 +11,6 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name = "players")
 public class Player extends Auditable{
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +22,7 @@ public class Player extends Auditable{
     @Setter
     @NotBlank
     private String name;
+
 
 
 }
