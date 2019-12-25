@@ -16,7 +16,7 @@ public class PlayerController
 {
     @Autowired
     private PlayerRepository playerRepository;
-
+/*
     @GetMapping("/players")
     public List<Player> getAllPlayers() {
         return playerRepository.findAll();
@@ -50,6 +50,6 @@ public class PlayerController
     }
 
 
-
+*/
 
 }
