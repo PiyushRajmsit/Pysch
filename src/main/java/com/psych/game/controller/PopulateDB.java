@@ -10,8 +10,6 @@ import com.psych.game.repository.QuestionRepository;
 import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
 
@@ -28,8 +26,6 @@ public class PopulateDB {
     private void getAllQuestions() throws IOException {
         questionRepository.deleteAll();
         int questionNumber = 0;
-
-
         for(Map.Entry<String,GameMode> entry: Constants.QA_FILES.entrySet()) {
             String fileName = entry.getKey();
             GameMode gameMode = entry.getValue();
