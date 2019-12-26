@@ -17,15 +17,14 @@ public class PlayerController {
     @Autowired
     private PlayerRepository playerRepository;
 
-
     @GetMapping("/players")
     private List<Player> getAllPlayers(){
         return playerRepository.findAll();
     }
 
     @GetMapping("/players/{id}")
-    private List<Player> getAllPlayers(@PathVariable(value = "id")Long id){
-        return playerRepository.findAll();
+    private Player getAllPlayers(@PathVariable(value = "id")Long id) throws Exception{
+        return playerRepository.findById(id).orElseThrow(Exception::new);
     }
 
 

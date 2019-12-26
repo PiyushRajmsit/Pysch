@@ -20,8 +20,8 @@ public class QuestionController {
     }
 
     @GetMapping("/questions/{id}")
-    private List<Question> getAllPlayers(@PathVariable(value = "id")Long id){
-        return questionRepository.findAll();
+    private Question getAllQuestions(@PathVariable(value = "id")Long id) throws Exception{
+        return questionRepository.findById(id).orElseThrow(Exception::new);
     }
 
 
