@@ -23,7 +23,7 @@ public class PopulateDB {
     private PlayerRepository playerRepository;
 
     @GetMapping("/add-questions-from-file")
-    private void getAllQuestions() throws IOException {
+    public void getAllQuestions() throws IOException {
         questionRepository.deleteAll();
         int questionNumber = 0;
         for(Map.Entry<String,GameMode> entry: Constants.QA_FILES.entrySet()) {
@@ -45,13 +45,16 @@ public class PopulateDB {
     }
 
     @GetMapping("/add-dummy-players")
-    private void addDummyPlayers() throws IOException {
+    public void addDummyPlayers() throws IOException {
         playerRepository.deleteAll();
         Player bonnie = new Player();
         bonnie.setName("Mrs.Bonnie");
+        bonnie.setPicUrl("https://i.imgur.com/PrCEBd7.png");
+        bonnie.setPsychFaceUrl("https://i.imgur.com/SPzynwl.png");
         Player clyde = new Player();
         clyde.setName("Mr.Clyde");
-
+        clyde.setPicUrl("https://i.imgur.com/kB7StJm.png");
+        clyde.setPsychFaceUrl("https://i.imgur.com/tnJTeaG.png");
         playerRepository.save(bonnie);
         playerRepository.save(clyde);
     }

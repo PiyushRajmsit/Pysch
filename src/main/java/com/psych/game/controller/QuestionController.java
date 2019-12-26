@@ -13,14 +13,13 @@ public class QuestionController {
     @Autowired
     private QuestionRepository questionRepository;
 
-
     @GetMapping("/questions")
-    private List<Question> getAllQuestions(){
+    public List<Question> getAllQuestions(){
         return questionRepository.findAll();
     }
 
     @GetMapping("/questions/{id}")
-    private Question getAllQuestions(@PathVariable(value = "id")Long id) throws Exception{
+    public Question getAllQuestions(@PathVariable(value = "id")Long id) throws Exception{
         return questionRepository.findById(id).orElseThrow(Exception::new);
     }
 

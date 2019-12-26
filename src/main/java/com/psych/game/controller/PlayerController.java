@@ -6,6 +6,7 @@ import com.psych.game.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -15,15 +16,18 @@ public class PlayerController {
     private PlayerRepository playerRepository;
 
     @GetMapping("/players")
-    private List<Player> getAllPlayers(){
+    public List<Player> getAllPlayers(){
         return playerRepository.findAll();
     }
 
     @GetMapping("/players/{id}")
-    private Player getAllPlayers(@PathVariable(value = "id")Long id) throws Exception{
+    public Player getPlayerById(@PathVariable(value = "id")Long id) throws Exception{
         return playerRepository.findById(id).orElseThrow(Exception::new);
     }
 
-
+    @PostMapping("/players")
+    public Player addPlayer(@Valid @RequestBody Player player) {
+        return playerRepository.save(player);
+    }
 
 }

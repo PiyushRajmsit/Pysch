@@ -11,7 +11,6 @@ import javax.validation.constraints.NotBlank;
 @MappedSuperclass
 public abstract class Employee extends Auditable{
 
-
     @Getter
     @Setter
     @NotBlank
