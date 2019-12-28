@@ -19,10 +19,9 @@ public class QuestionController {
     }
 
     @GetMapping("/questions/{id}")
-    public Question getAllQuestions(@PathVariable(value = "id")Long id) throws Exception{
+    public Question getQuestionById(@PathVariable(value = "id")Long id) throws Exception{
         return questionRepository.findById(id).orElseThrow(Exception::new);
     }
-
 
 
 }
