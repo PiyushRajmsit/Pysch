@@ -29,7 +29,6 @@ public class ContentWriterController {
         return ContentWriterRepository.findById(id).orElseThrow(Exception::new);
     }
 
-    //@PutMapping("/content_writer/{writer_id}/question/{question_id}")
     @PutMapping("/content_writer/{id}")
     public ResponseEntity<Object> editQuestion(@PathVariable(value = "id")Long id, @Valid @RequestBody Question question) throws Exception{
 
