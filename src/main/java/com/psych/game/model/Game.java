@@ -3,6 +3,7 @@ package com.psych.game.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,6 +18,10 @@ public  class Game extends Auditable{
     @Setter
     @NotNull
     private int numRounds = 0;
+
+    @Getter
+    @Setter
+    private boolean hasEllen = false;
 
     @Getter
     @Setter

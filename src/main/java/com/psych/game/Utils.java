@@ -7,9 +7,36 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class Utils {
+
+
+    private static List<String> wordsList;
+    private static Map<String,Integer> wordsIndices;
+
+    static {
+
+        wordsList = new ArrayList<>();
+
+        try {
+
+            BufferedReader br = new BufferedReader(new FileReader("words.txt"));
+            String word;
+
+            do {
+                word = br.readLine();
+                wordsList.add(word);
+                wordsIndices.put(word,wordsList.size()-1);
+            } while (word != null);
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
 
 
     public static List<Pair<String,String>> readQAFile(String filename) throws FileNotFoundException {
@@ -33,4 +60,33 @@ public class Utils {
         }
         return question_answers;
     }
+
+    public static String getSecretCodeFromId(Long id) {
+
+        int base = wordsList.size();
+        String code = "";
+        while(id > 0){
+            code += wordsList.get( (int)(id%base))+" ";
+            id /= base;
+        }
+
+        return code;
+        // todo: Convert id to code
+    }
+
+    public static long getGameIdFromSecretCode(String code){
+
+        List<String> words = Arrays.asList(code.split(" "));
+        Long gameId = 0L;
+        int base = wordsList.size();
+        for (String word : words){
+
+            int index = wordsIndices.get(word);
+            gameId = gameId*base + index;
+        }
+
+        return gameId;
+    }
+
+
 }
