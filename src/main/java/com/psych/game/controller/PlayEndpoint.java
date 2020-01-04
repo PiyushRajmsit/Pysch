@@ -17,11 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/game")
-public class game {
+@RequestMapping("/play")
+public class PlayEndpoint {
 
     @Autowired
     PlayerRepository playerRepository;
@@ -71,6 +69,8 @@ public class game {
     //check if game has started
     // check game has not already been started
     // check game has more than 1 player
+
+
 
 
     // todo: GetgameState  - gid
