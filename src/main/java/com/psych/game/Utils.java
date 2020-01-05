@@ -1,15 +1,13 @@
 package com.psych.game;
 
+import com.psych.game.model.Question;
 import javafx.util.Pair;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Utils {
 
@@ -20,7 +18,7 @@ public class Utils {
     static {
 
         wordsList = new ArrayList<>();
-
+        wordsIndices = new HashMap<>();
         try {
 
             BufferedReader br = new BufferedReader(new FileReader("words.txt"));
@@ -40,15 +38,16 @@ public class Utils {
 
 
     public static List<Pair<String,String>> readQAFile(String filename) throws FileNotFoundException {
-        BufferedReader br = new BufferedReader(new FileReader(filename));
+
         String question,answer;
         List<Pair<String,String>> question_answers = new ArrayList<>();
-        try {
+        try(BufferedReader br = new BufferedReader(new FileReader(filename))){
             do {
                 question = br.readLine();
                 answer = br.readLine();
 
-                if(question == null || answer == null || question.length() > Constants.MAX_QUESTION_LENGTH - 1 || answer.length() > Constants.MAX_ANSWER_LENGTH - 1){
+                if(question == null || answer == null || question.length() > Constants.MAX_QUESTION_LENGTH - 1 ||
+                        answer.length() > Constants.MAX_ANSWER_LENGTH - 1){
                     System.out.println("Skipping Question :" + question);
                     System.out.println("Skipping Answer :" + answer);
                 }
@@ -88,5 +87,8 @@ public class Utils {
         return gameId;
     }
 
+    public static Question getRandomQuestion() {
 
+
+    }
 }

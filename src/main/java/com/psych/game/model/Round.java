@@ -1,11 +1,19 @@
 package com.psych.game.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.psych.game.exceptions.InvalidActionForGameStateException;
+import com.psych.game.exceptions.InvalidInputException;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.nio.charset.MalformedInputException;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 
 @Entity
@@ -16,6 +24,7 @@ public class Round extends Auditable{
     @Getter
     @Setter
     @NotNull
+    @JsonBackReference
     private Game game;
 
     @ManyToOne
@@ -28,9 +37,54 @@ public class Round extends Auditable{
     private int roundNumber;
 
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @Getter
+    @Setter
+    @JsonManagedReference
+    private Map<Player,PlayerAnswer> submittedAnswers = new HashMap<>();
+
     @ManyToMany
     @Getter
     @Setter
-    private Map<Player,PlayerAnswer> playerAnswers;
+    private Map<Player,PlayerAnswer> selectedAnswers = new HashMap<>();
+
+
+    @ManyToMany
+    @Getter
+    @Setter
+    private Set<Player> readyPlayers = new HashSet<>();
+
+
+    public Round() {
+    }
+
+    public Round(@NotNull Game game,Question question,@NotNull int roundNumber)
+    {
+        this.game = game;
+        this.question = question;
+        this.roundNumber = roundNumber;
+    }
+
+    public void submitAnswer(Player player, String answer) throws InvalidActionForGameStateException{
+
+        if(submittedAnswers.containsKey(player))
+            throw new InvalidActionForGameStateException("Player has already submitted the answer");
+        PlayerAnswer playerAnswer = new PlayerAnswer(answer,this,player);
+        submittedAnswers.put(player,playerAnswer);
+
+    }
+
+    public void selectAnswer(Player player, PlayerAnswer playerAnswer) throws InvalidInputException{
+
+        if(!playerAnswer.getRound().equals(this)){
+            throw new InvalidInputException("No Such answer found for this round");
+        }
+        selectedAnswers.put(player,playerAnswer);
+
+    }
+
+    public void getReady(Player player) {
+        readyPlayers.add(player);
+    }
 
 }

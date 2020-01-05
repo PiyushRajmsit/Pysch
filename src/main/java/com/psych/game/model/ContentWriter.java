@@ -1,5 +1,6 @@
 package com.psych.game.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @Table(name = "content_writers")
 public class ContentWriter extends Employee{
 
+    @JsonIdentityReference
     @ManyToMany
     @Getter
     @Setter
